@@ -6,25 +6,63 @@ import { ExampleChart, Pie3D, Column3D, Bar3D, Doughnut2D } from './Charts'
 const Repos = () => {
   const { repos } = React.useContext(GithubContext)
 
-  const chartData = [
-    {
-      label: 'HTML',
-      value: '13',
-    },
-    {
-      label: 'CSS',
-      value: '23',
-    },
-    {
-      label: 'JavaScript',
-      value: '80',
-    },
-  ]
+  // let languages = repos.reduce((total, item) => {
+  //   const { language } = item
+  //   ! If the property is falsey --> return total
+  //   if (!language) return total
+  //   ! If the property doesnt exist
+  //   if (!total[language]) {
+  //     total[language] = 1
+  //   } else {
+  //     total[language] = total[language] + 1
+  //   }
+  //   return total
+  // }, {})
+
+  //!!! We will make above code more dynamic because we need them in object with two properties of "label" and "value"
+
+  let languages = repos.reduce((total, item) => {
+    const { language } = item
+    if (!language) return total
+    if (!total[language]) {
+      total[language] = { label: language, value: 1 }
+    } else {
+      total[language] = {
+        ...total[language],
+        value: total[language].value + 1,
+      }
+    }
+
+    return total
+  }, {})
+
+  //!!! We wanna display most popular languages and we will remove some of the languages and at the end we want to have an array that only has the 5 language...
+  //! For that first we wanna convert "languages" object to an array...
+  languages = Object.values(languages)
+    .sort((a, b) => {
+      return b.value - a.value
+    })
+    .slice(0, 5)
+
+  // const chartData = [
+  //   {
+  //     label: 'HTML',
+  //     value: '13',
+  //   },
+  //   {
+  //     label: 'CSS',
+  //     value: '23',
+  //   },
+  //   {
+  //     label: 'JavaScript',
+  //     value: '80',
+  //   },
+  // ]
 
   return (
     <section className='section'>
       <Wrapper className='section-center'>
-        <Pie3D data={chartData} />
+        <Pie3D data={languages} />
         {/* <ExampleChart data={chartData} /> */}
       </Wrapper>
     </section>
