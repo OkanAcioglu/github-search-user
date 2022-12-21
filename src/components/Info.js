@@ -8,7 +8,6 @@ const UserInfo = () => {
   //! With below now we can reach all of the data,logic,function etc... that we create in the context.
   const { githubUser } = React.useContext(GithubContext)
   const { public_repos, followers, following, public_gists } = githubUser
-  console.log(public_repos, followers, following, public_gists)
 
   //! We will create an array with 3 object so that we can iterate them...
   const items = [
