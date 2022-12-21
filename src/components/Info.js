@@ -7,7 +7,8 @@ import { FiUsers, FiUserPlus } from 'react-icons/fi'
 const UserInfo = () => {
   //! With below now we can reach all of the data,logic,function etc... that we create in the context.
   const data = React.useContext(GithubContext)
-  return <h2>user info component : {data}</h2>
+  console.log(data)
+  return <h2>user info component</h2>
 }
 
 const Wrapper = styled.section`
