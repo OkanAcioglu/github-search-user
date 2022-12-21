@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   login: 'OkanAcioglu',
   id: 110339040,
@@ -20,11 +21,11 @@ export default {
     'https://api.github.com/users/OkanAcioglu/received_events',
   type: 'User',
   site_admin: false,
-  name: null,
+  name: 'Okan Acıoğlu',
   company: null,
   blog: '',
   location: null,
-  email: null,
+  email: 'okanacioglu@gmail.com',
   hireable: null,
   bio: null,
   twitter_username: null,
