@@ -21,26 +21,53 @@ const Repos = () => {
 
   //!!! We will make above code more dynamic because we need them in object with two properties of "label" and "value"
 
-  let languages = repos.reduce((total, item) => {
-    const { language } = item
+  // let languages = repos.reduce((total, item) => {
+  //   const { language } = item
+  //   if (!language) return total
+  //   if (!total[language]) {
+  //     total[language] = { label: language, value: 1 }
+  //   } else {
+  //     total[language] = {
+  //       ...total[language],
+  //       value: total[language].value + 1,
+  //     }
+  //   }
+
+  //   return total
+  // }, {})
+
+  //! For calculating "stars" we will refactor the code instead of creating a new "reduce"
+  const languages = repos.reduce((total, item) => {
+    const { language, stargazers_count } = item
     if (!language) return total
     if (!total[language]) {
-      total[language] = { label: language, value: 1 }
+      total[language] = { label: language, value: 1, stars: stargazers_count }
     } else {
       total[language] = {
         ...total[language],
         value: total[language].value + 1,
+        stars: total[language].stars + stargazers_count,
       }
     }
 
     return total
   }, {})
+  console.log(languages)
 
-  //!!! We wanna display most popular languages and we will remove some of the languages and at the end we want to have an array that only has the 5 language...
-  //! For that first we wanna convert "languages" object to an array...
-  languages = Object.values(languages)
+  //! Most used per language
+  const mostUsed = Object.values(languages)
     .sort((a, b) => {
       return b.value - a.value
+    })
+    .slice(0, 5)
+  //! Most star per language
+  //! With "map" we change the "value" with "stars" because that is the one that chart looking for
+  const mostPopular = Object.values(languages)
+    .sort((a, b) => {
+      return b.stars - a.stars
+    })
+    .map((item) => {
+      return { ...item, value: item.stars }
     })
     .slice(0, 5)
 
@@ -62,10 +89,10 @@ const Repos = () => {
   return (
     <section className='section'>
       <Wrapper className='section-center'>
-        <Pie3D data={languages} />
+        <Pie3D data={mostUsed} />
         <div></div>
         {/* <ExampleChart data={chartData} /> */}
-        <Doughnut2D data={chartData} />
+        <Doughnut2D data={mostPopular} />
         <div></div>
       </Wrapper>
     </section>
