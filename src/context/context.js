@@ -37,19 +37,35 @@ const GithubProvider = ({ children }) => {
       //! login and followers_url are inside the data object that we fetch
       const { login, followers_url } = response.data
       //* Repos
-      axios(`${rootUrl}/users/${login}/repos?per_page=100`).then((response) =>
-        //console.log(response)
-        setRepos(response.data)
-      )
+      //axios(`${rootUrl}/users/${login}/repos?per_page=100`).then((response) =>
+      //console.log(response)
+      // setRepos(response.data)
+      //)
       //* Followers
-      axios(`${followers_url}?per_page=100`).then((response) =>
-        //console.log(response)
-        setFollowers(response.data)
-      )
+      //axios(`${followers_url}?per_page=100`).then((response) =>
+      //console.log(response)
+      //  setFollowers(response.data)
+      //)
       // repos
       // https://api.github.com/users/john-smilga/repos?per_page=100
       // followers
       // https://api.github.com/users/john-smilga/followers
+      //!!! we want to all data come back at the same time...
+      await Promise.allSettled([
+        axios(`${rootUrl}/users/${login}/repos?per_page=100`),
+        axios(`${followers_url}?per_page=100`),
+      ])
+        .then((results) => {
+          const [repos, followers] = results
+          const status = 'fulfilled'
+          if (repos.status === status) {
+            setRepos(repos.value.data)
+          }
+          if (followers.status === status) {
+            setFollowers(followers.value.data)
+          }
+        })
+        .catch((err) => console.log(err))
     } else {
       toggleError(true, 'there is no user with that username')
     }
