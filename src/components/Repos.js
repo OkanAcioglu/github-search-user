@@ -52,7 +52,7 @@ const Repos = () => {
 
     return total
   }, {})
-  console.log(languages)
+  //console.log(languages)
 
   //! Most used per language
   const mostUsed = Object.values(languages)
