@@ -20,7 +20,7 @@ const GithubProvider = ({ children }) => {
 
   //* Request and Loading
   const [requests, setRequests] = useState(0)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   //* Errors
   const [error, setError] = useState({ show: false, msg: '' })
 
@@ -28,7 +28,7 @@ const GithubProvider = ({ children }) => {
   const searchGithubUser = async (user) => {
     //! everytime we start searching we wanna make sure we remove the error message if there is...
     toggleError()
-    //* set loading true
+    setIsLoading(true)
     const response = await axios(`${rootUrl}/users/${user}`).catch((err) => {
       console.log(err)
     })
@@ -37,6 +37,8 @@ const GithubProvider = ({ children }) => {
     } else {
       toggleError(true, 'there is no user with that username')
     }
+    checkRequests()
+    setIsLoading(false)
   }
 
   //* Check Requests
@@ -74,6 +76,7 @@ const GithubProvider = ({ children }) => {
         requests,
         error,
         searchGithubUser,
+        isLoading,
       }}
     >
       {children}
