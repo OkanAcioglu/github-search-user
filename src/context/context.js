@@ -21,6 +21,8 @@ const GithubProvider = ({ children }) => {
   //* Request and Loading
   const [requests, setRequests] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
+  //* Errors
+  const [error, setError] = useState({ show: false, msg: '' })
   //* Check Requests
   const checkRequests = () => {
     axios(`${rootUrl}/rate_limit`)
@@ -28,20 +30,29 @@ const GithubProvider = ({ children }) => {
         let {
           rate: { remaining },
         } = data
+
         setRequests(remaining)
         if (remaining === 0) {
-          //* Throw an error
+          //* Throw an error if no more request
+          toggleError(true, 'sorry, you have exceeded your hourly rate limit!')
         }
       })
       .catch((err) => {
         console.log(err)
       })
   }
+  //! We pass a default value so that when we invoke it without passing anythink, we will set back the default values
+  function toggleError(show = false, msg = '') {
+    setError({ show, msg })
+  }
+
   //* Error
   useEffect(checkRequests, [])
   return (
     // //! ES6 syntax --> if the property name is equal to a variable name that has the value, we can write just the property name... (githubUser: githubUser === githubUser)
-    <GithubContext.Provider value={{ githubUser, repos, followers, requests }}>
+    <GithubContext.Provider
+      value={{ githubUser, repos, followers, requests, error }}
+    >
       {children}
     </GithubContext.Provider>
   )
