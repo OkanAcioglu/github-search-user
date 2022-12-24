@@ -31,8 +31,8 @@ export default ReactComponent
 [React Icons - Main Docs](https://react-icons.github.io/react-icons/)
 
 ```jsx
-import { FiUsers, FiUserPlus } from 'react-icons/fi';
-<FiUsers className='nameOfTheClass'> </FiUsers>;
+import { FiUsers, FiUserPlus } from 'react-icons/fi'
+;<FiUsers className='nameOfTheClass'> </FiUsers>
 ```
 
 ## React Router Dom
@@ -65,11 +65,12 @@ version used - "react-router-dom": "^5.2.0",
 
 - [Auth0 - Main Docs](https://auth0.com/)
 
-- Create Application
+- Application --> Create Application
 - Choose : Single Page Web Applications
 - Choose : React
 - Go to Settings Tab
-- Copy/Paste Domain, ClientID - can be public (or use .env)
+- Copy/Paste Domain, Client ID - can be public (or use .env) --> paste them in index.js
+- İmport provider from library
 - Add Domain -
   for now http://localhost:3000 (DON'T COPY PASTE FROM URL BAR)
 
@@ -78,9 +79,10 @@ version used - "react-router-dom": "^5.2.0",
   - Allowed Web Origins
   - SAVE CHANGES!!!!!!!!!!!!!!!
 
-- Connections
-  email,social
-
+- Go Authentication --> Database --> Create DB Connection
+- In DB --> Go Applications --> Enable Github Users (connection of DB with APP)
+- In Social --> Create Connection (can be delete if there exist and create from stracth) --> Choose platforms which ones you will use --> Connect the app in the applications
+- Follow the Docs...
 - [React SDK Docs](https://auth0.com/docs/libraries/auth0-react)
 - [REACT SDK API Docs](https://auth0.github.io/auth0-react/)
 
