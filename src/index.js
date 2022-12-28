@@ -14,7 +14,7 @@ root.render(
   <React.StrictMode>
     <Auth0Provider
       domain='dev-l1i7rqfki2f08t3s.eu.auth0.com'
-      clientId='R1rZYk1T8V96qNjXTZ2bMdAMFf6D6EqW'
+      clientId='HDFrJbwgsEdJWpDDWUyybKUU88w9SRPN'
       redirectUri={window.location.origin}
     >
       <GithubProvider>
