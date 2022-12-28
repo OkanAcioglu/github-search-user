@@ -16,6 +16,7 @@ root.render(
       domain='dev-l1i7rqfki2f08t3s.eu.auth0.com'
       clientId='HDFrJbwgsEdJWpDDWUyybKUU88w9SRPN'
       redirectUri={window.location.origin}
+      cacheLocation='localstorage' //! to be able to still logged if we navigate accidentaly navigate a different URL when we logged using Google or Twitter Auth
     >
       <GithubProvider>
         <App />
